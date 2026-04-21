@@ -34,8 +34,8 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 w-full z-[100] border-b border-white/5 bg-black/40 backdrop-blur-3xl">
-      <nav className="max-w-7xl mx-auto px-8 h-24 flex justify-between items-center relative z-[100]">
-        <Link href="/" className="text-2xl font-black tracking-tighter text-white uppercase font-display z-[100]">
+      <nav className="max-w-7xl mx-auto px-8 h-24 flex justify-between items-center relative z-[160]">
+        <Link href="/" className="text-2xl font-black tracking-tighter text-white uppercase font-display z-[160]">
           CREATIVE <span className="gradient-text">REALM</span>
         </Link>
         
@@ -63,7 +63,7 @@ export default function Navbar() {
           })}
         </div>
         
-        <div className="flex items-center gap-6 z-[100]">
+        <div className="flex items-center gap-6 z-[160]">
           <Link href="/contact" className="group relative hidden sm:flex items-center gap-2">
             <span className="font-display font-black text-[10px] uppercase tracking-[0.2em] text-white group-hover:text-violet-primary transition-colors">Start a Project</span>
             <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-violet-primary group-hover:text-black group-hover:border-violet-primary transition-all">
@@ -72,7 +72,7 @@ export default function Navbar() {
           </Link>
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white p-2 focus:outline-none"
+            className="md:hidden text-white p-2 focus:outline-none z-[160]"
             aria-label="Toggle Menu"
           >
             {isOpen ? <X size={32} /> : <Menu size={32} />}
@@ -81,13 +81,13 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <AnimatePresence>
+      <AnimatePresence mode="wait">
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] md:hidden flex flex-col pt-32 px-12"
+            className="fixed inset-0 bg-black z-[150] md:hidden flex flex-col pt-40 px-12"
           >
             <div className="flex flex-col gap-6">
               {navLinks.map((link, i) => {
