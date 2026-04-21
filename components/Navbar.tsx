@@ -84,25 +84,25 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, x: "100%" }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-black z-40 md:hidden flex flex-col justify-center px-12"
+            initial={{ opacity: 0, y: "-100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className="fixed inset-0 bg-black z-40 md:hidden flex flex-col pt-32 px-12 overflow-y-auto"
           >
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
               {navLinks.map((link, i) => {
                 const isActive = pathname === link.href;
                 return (
                   <motion.div
                     key={link.name}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 + i * 0.1 }}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 + i * 0.05 }}
                   >
                     <Link
                       href={link.href}
-                      className={`text-5xl font-black font-display uppercase tracking-tighter transition-colors ${
+                      className={`text-4xl font-black font-display uppercase tracking-tighter transition-colors ${
                         isActive ? "gradient-text" : "text-white hover:text-violet-primary"
                       }`}
                     >
@@ -113,9 +113,9 @@ export default function Navbar() {
               })}
             </div>
             
-            <div className="mt-24">
-              <p className="text-gray-500 font-display uppercase text-xs tracking-[0.4em] mb-6">Let's Connect</p>
-              <div className="flex gap-8">
+            <div className="mt-16 pb-12">
+              <p className="text-gray-500 font-display uppercase text-[10px] tracking-[0.4em] mb-6">Let's Connect</p>
+              <div className="flex flex-col gap-4">
                  <a href="#" className="text-white font-display font-bold hover:text-violet-primary transition-colors uppercase tracking-widest text-xs">Instagram</a>
                  <a href="#" className="text-white font-display font-bold hover:text-violet-primary transition-colors uppercase tracking-widest text-xs">LinkedIn</a>
                  <a href="#" className="text-white font-display font-bold hover:text-violet-primary transition-colors uppercase tracking-widest text-xs">Twitter</a>
