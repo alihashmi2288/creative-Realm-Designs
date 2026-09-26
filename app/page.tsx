@@ -2,36 +2,34 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center text-center px-8 sm:px-12 md:px-24 overflow-hidden">
+      <section className="relative min-h-[90vh] md:h-screen flex items-center justify-center text-center px-6 sm:px-12 md:px-24 overflow-hidden">
         {/* Video Background */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-obsidian">
           <video 
             autoPlay 
             loop 
             muted 
             playsInline 
-            className="w-full h-full object-cover opacity-40"
+            preload="metadata"
+            className="w-full h-full object-cover opacity-35"
           >
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-obsidian" aria-hidden="true" />
         </div>
 
-        <div className="max-w-5xl z-10 px-4">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: "easeOut" }}
-          >
-            <span className="text-violet-primary font-display text-[10px] font-bold uppercase tracking-[0.5em] mb-6 block">
+        <div className="max-w-5xl z-10 px-4 py-16">
+          <div>
+            <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.5em] mb-6 block">
               Innovation & Design
             </span>
-            <h1 className="text-4xl md:text-7xl lg:text-8xl font-black font-display text-white leading-[0.95] uppercase tracking-tighter mb-8">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-display text-white leading-[0.95] uppercase tracking-tighter mb-8">
               WELCOME TO <br />
               <span className="gradient-text">CREATIVE REALM</span> <br />
               DESIGNS
@@ -40,23 +38,27 @@ export default function HomePage() {
               We are a team of experts dedicated to crafting premium digital experiences. We design, we build, and we help your business thrive in the modern world.
             </p>
             <div className="flex justify-center">
-              <Link href="/contact" className="btn-primary text-lg px-12 py-4 inline-block transform hover:scale-105 transition-transform interactive">
+              <Link 
+                href="/contact" 
+                className="btn-primary text-base md:text-lg px-10 md:px-12 py-4 inline-block transform hover:scale-105 transition-transform interactive"
+                aria-label="Get started by contacting Creative Realm"
+              >
                 GET STARTED
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Philosophy Section */}
-      <section className="py-24 px-8 md:px-24 bg-black/40 backdrop-blur-3xl border-y border-white/5">
+      <section className="py-24 px-8 md:px-24 bg-black/40 backdrop-blur-3xl border-y border-white/5" aria-labelledby="philosophy-heading">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
-              <h2 className="text-4xl md:text-5xl font-black font-display text-white uppercase tracking-tighter mb-8 leading-tight">
+              <h2 id="philosophy-heading" className="text-3xl md:text-5xl font-black font-display text-white uppercase tracking-tighter mb-8 leading-tight">
                 Your Growth is Our <span className="text-violet-primary">Main Focus</span>
               </h2>
-              <p className="text-gray-400 text-lg mb-8 leading-relaxed font-display">
+              <p className="text-gray-300 text-lg mb-8 leading-relaxed font-display">
                 We believe a website should do more than just look good. It should help your business grow. We mix creative design with smart code to make sites that work for you and your customers.
               </p>
               <div className="grid grid-cols-2 gap-8">
@@ -72,16 +74,18 @@ export default function HomePage() {
             </div>
             
             <div className="relative">
-              <div className="glass-card p-8 aspect-square relative flex flex-col justify-end overflow-hidden group">
-                <img 
+              <div className="glass-card p-8 aspect-square relative flex flex-col justify-end overflow-hidden group rounded-3xl">
+                <Image 
                   src="/clean-design.png" 
-                  alt="Web Design" 
-                  className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
-                  referrerPolicy="no-referrer"
+                  alt="Showcase of clean, responsive web design mockup" 
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
+                  loading="lazy"
                 />
                 <div className="relative z-10">
                   <h3 className="text-2xl font-black font-display text-white uppercase mb-2">Clean Design</h3>
-                  <p className="text-gray-300 text-sm font-display">Simple layouts that make your brand stand out.</p>
+                  <p className="text-gray-200 text-sm font-display">Simple layouts that make your brand stand out.</p>
                 </div>
               </div>
             </div>
@@ -90,11 +94,11 @@ export default function HomePage() {
       </section>
 
       {/* Services Highlight */}
-      <section className="py-24 px-8 md:px-24">
+      <section className="py-24 px-8 md:px-24" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-black font-display text-white uppercase tracking-tighter mb-4">What We Do</h2>
-            <div className="w-24 h-1 bg-violet-primary mx-auto" />
+            <h2 id="services-heading" className="text-3xl md:text-4xl font-black font-display text-white uppercase tracking-tighter mb-4">What We Do</h2>
+            <div className="w-24 h-1 bg-violet-primary mx-auto" aria-hidden="true" />
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -109,11 +113,11 @@ export default function HomePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.1 }}
                 viewport={{ once: true }}
-                className="glass-card p-12 text-center"
+                className="glass-card p-12 text-center rounded-2xl"
               >
-                <div className="text-4xl text-violet-primary mb-6">{feature.icon}</div>
+                <div className="text-4xl text-violet-primary mb-6" aria-hidden="true">{feature.icon}</div>
                 <h3 className="text-xl font-bold font-display text-white uppercase mb-4 tracking-tight">{feature.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed font-display">{feature.desc}</p>
+                <p className="text-gray-300 text-sm leading-relaxed font-display">{feature.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -121,7 +125,7 @@ export default function HomePage() {
       </section>
 
       {/* Impact Section */}
-      <section className="py-32 px-8 md:px-24 bg-violet-600/5 overflow-hidden relative">
+      <section className="py-32 px-8 md:px-24 bg-violet-600/5 overflow-hidden relative" aria-label="Our impact and numbers">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {[
@@ -139,64 +143,74 @@ export default function HomePage() {
                 className="text-center"
               >
                 <div className="text-6xl md:text-7xl font-black font-display gradient-text mb-4 tracking-tighter">{stat.value}</div>
-                <div className="text-sm uppercase tracking-[0.3em] text-gray-500 font-bold">{stat.label}</div>
+                <div className="text-xs uppercase tracking-[0.3em] text-gray-400 font-bold">{stat.label}</div>
               </motion.div>
             ))}
           </div>
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-10 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-10 pointer-events-none" aria-hidden="true">
           <div className="w-[800px] h-[800px] bg-violet-500/20 rounded-full blur-[150px] mx-auto" />
         </div>
       </section>
 
       {/* Portfolio Teaser */}
-      <section className="py-32 px-8 md:px-24">
+      <section className="py-32 px-8 md:px-24" aria-labelledby="portfolio-teaser-heading">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-xl">
               <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.5em] mb-4 block">Case Studies</span>
-              <h2 className="text-4xl md:text-6xl font-black font-display text-white uppercase tracking-tighter leading-none">Featured <br /> Projects</h2>
+              <h2 id="portfolio-teaser-heading" className="text-4xl md:text-6xl font-black font-display text-white uppercase tracking-tighter leading-none">Featured <br /> Projects</h2>
             </div>
-            <Link href="/portfolio" className="group flex items-center gap-4 text-white font-bold font-display uppercase tracking-widest text-sm">
+            <Link 
+              href="/portfolio" 
+              className="group flex items-center gap-4 text-white font-bold font-display uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-full px-2 py-1"
+              aria-label="View all portfolio projects"
+            >
               View All Work
               <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
               </div>
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {[
-              { t: "Lumina E-Commerce", c: "Premium Retail", img: "/projects/ecommerce.png" },
-              { t: "Aura Interiors", c: "Interior Design", img: "/projects/interior.png" }
-            ].map((p, i) => (
-              <motion.div 
+              { t: "Lumina E-Commerce", c: "Premium Retail", img: "/projects/ecommerce.png", slug: "lumina-e-commerce" },
+              { t: "Aura Interiors", c: "Interior Design", img: "/projects/interior.png", slug: "aura-interiors" }
+            ].map((p) => (
+              <Link 
+                href={`/portfolio/${p.slug}`}
                 key={p.t}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                className="group cursor-none interactive"
+                aria-label={`View case study for ${p.t}`}
+                className="group block interactive rounded-[2rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-4 focus-visible:ring-offset-obsidian"
               >
-                <div className="aspect-[4/3] overflow-hidden rounded-[2rem] mb-8 relative">
-                  <img src={p.img} alt={p.t} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm">
+                <div className="aspect-[4/3] overflow-hidden rounded-[2rem] mb-8 relative bg-surface-container">
+                  <Image 
+                    src={p.img} 
+                    alt={`Mockup preview of ${p.t} website`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700" 
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center backdrop-blur-sm" aria-hidden="true">
                     <span className="px-8 py-3 bg-white text-black font-black font-display text-xs uppercase tracking-widest rounded-full">Explore</span>
                   </div>
                 </div>
-                <h3 className="text-2xl font-black font-display text-white uppercase mb-2">{p.t}</h3>
-                <p className="text-gray-500 font-display uppercase text-xs tracking-widest">{p.c}</p>
-              </motion.div>
+                <h3 className="text-2xl font-black font-display text-white uppercase mb-2 group-hover:text-violet-primary transition-colors">{p.t}</h3>
+                <p className="text-gray-400 font-display uppercase text-xs tracking-widest">{p.c}</p>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
       {/* Testimonials Section */}
-      <section className="py-32 px-8 md:px-24 bg-black/20">
+      <section className="py-32 px-8 md:px-24 bg-black/20" aria-labelledby="client-stories-heading">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24">
             <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.5em] mb-4 block">Kind Words</span>
-            <h2 className="text-4xl md:text-5xl font-black font-display text-white uppercase tracking-tighter">Client Stories</h2>
+            <h2 id="client-stories-heading" className="text-4xl md:text-5xl font-black font-display text-white uppercase tracking-tighter">Client Stories</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -210,17 +224,19 @@ export default function HomePage() {
                 initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="glass-card p-12 relative"
+                className="glass-card p-12 relative rounded-2xl"
               >
-                <div className="text-6xl font-serif text-violet-primary/20 absolute top-8 left-8">"</div>
+                <div className="text-6xl font-serif text-violet-primary/20 absolute top-8 left-8" aria-hidden="true">"</div>
                 <p className="text-gray-300 italic mb-8 relative z-10 font-display leading-relaxed">
                   {t.text}
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-violet-600/30" />
+                  <div className="w-12 h-12 rounded-full bg-violet-600/30 flex items-center justify-center font-bold font-display text-white" aria-hidden="true">
+                    {t.name.charAt(0)}
+                  </div>
                   <div>
                     <div className="text-white font-bold font-display uppercase text-sm">{t.name}</div>
-                    <div className="text-violet-primary text-[10px] uppercase tracking-widest">{t.role}</div>
+                    <div className="text-violet-primary text-xs uppercase tracking-widest">{t.role}</div>
                   </div>
                 </div>
               </motion.div>
@@ -230,28 +246,32 @@ export default function HomePage() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-48 px-8 md:px-24 text-center relative overflow-hidden">
+      <section className="py-48 px-8 md:px-24 text-center relative overflow-hidden" aria-labelledby="cta-heading">
         <div className="relative z-10 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-5xl md:text-8xl font-black font-display text-white uppercase tracking-tighter mb-12 leading-none">
+            <h2 id="cta-heading" className="text-5xl md:text-8xl font-black font-display text-white uppercase tracking-tighter mb-12 leading-none">
               Let's craft something <br /> <span className="gradient-text">Legendary</span>
             </h2>
-            <p className="text-xl text-gray-400 mb-16 max-w-2xl mx-auto font-display">
+            <p className="text-xl text-gray-300 mb-16 max-w-2xl mx-auto font-display">
               We're currently accepting new projects for Q3 2026. Reach out and let's discuss your vision.
             </p>
-            <Link href="/contact" className="btn-primary text-xl px-16 py-6 inline-block">
+            <Link 
+              href="/contact" 
+              className="btn-primary text-xl px-16 py-6 inline-block"
+              aria-label="Start a new project with Creative Realm"
+            >
               START A PROJECT
             </Link>
           </motion.div>
         </div>
         
         {/* Decorative background for CTA */}
-        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30">
-          <div className="w-[1000px] h-[1000px] bg-gradient-to-r from-violet-600/20 to-peach-secondary/20 rounded-full blur-[150px] animate-pulse" />
+        <div className="absolute inset-0 z-0 flex items-center justify-center opacity-30" aria-hidden="true">
+          <div className="w-[1000px] h-[1000px] bg-gradient-to-r from-violet-600/20 to-peach-secondary/20 rounded-full blur-[150px]" />
         </div>
       </section>
     </div>
