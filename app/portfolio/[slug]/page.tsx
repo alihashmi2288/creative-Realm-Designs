@@ -3,29 +3,29 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ArrowRight } from "lucide-react";
 
 import { projects } from "@/lib/projects";
 
 export default function ProjectDetail() {
   const params = useParams();
-  const slug = params.slug as string;
+  const slug = params?.slug as string;
   
   const project = projects.find(p => p.slug === slug);
   
   if (!project) {
     return (
       <div className="py-32 text-center text-white">
-        <h1 className="text-3xl font-bold mb-4 font-display">Project Not Found</h1>
+        <h1 className="text-3xl font-bold mb-4 font-display">Case Study Not Found</h1>
         <Link href="/portfolio" className="text-violet-primary hover:underline font-display text-sm">
-          Return to Portfolio
+          Return to All Work
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="py-24 px-8 md:px-24">
+    <div className="py-24 px-6 sm:px-12 md:px-24">
       <div className="max-w-7xl mx-auto">
         <Link 
           href="/portfolio" 
@@ -35,30 +35,28 @@ export default function ProjectDetail() {
           Back to Portfolio
         </Link>
         
-        <header className="mb-24">
-          <h1 className="text-5xl md:text-8xl lg:text-9xl font-black font-display text-white uppercase tracking-tighter mb-8 leading-none">
+        <header className="mb-20">
+          <div className="flex flex-wrap items-center gap-3 mb-6">
+            <span className="px-3.5 py-1 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-primary text-xs font-bold uppercase tracking-widest font-display">
+              {project.category}
+            </span>
+            <span className="text-gray-400 text-xs font-display uppercase tracking-wider">
+              {project.clientIndustry}
+            </span>
+          </div>
+          <h1 className="text-4xl sm:text-6xl md:text-8xl font-black font-display text-white uppercase tracking-tighter mb-8 leading-none">
             {project.title}
           </h1>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 font-display">Client</div>
-              <div className="text-white font-display font-medium italic">Premium Client</div>
-            </div>
-            <div>
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 font-display">Year</div>
-              <div className="text-white font-display font-medium">2024</div>
-            </div>
-            <div>
-              <div className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-2 font-display">Services</div>
-              <div className="text-white font-display font-medium">{project.category}</div>
-            </div>
-          </div>
+          <p className="text-gray-300 text-lg md:text-xl font-display max-w-3xl leading-relaxed">
+            {project.description}
+          </p>
         </header>
 
-        <div className="glass-card aspect-video rounded-3xl overflow-hidden mb-24 relative bg-surface-container">
+        {/* Hero Preview */}
+        <div className="glass-card aspect-video rounded-3xl overflow-hidden mb-20 relative bg-surface-container shadow-2xl">
           <Image 
             src={project.image} 
-            alt={`Detailed preview of ${project.title}`} 
+            alt={`Detailed case study preview for ${project.title}`} 
             fill
             priority
             sizes="(max-width: 1200px) 100vw, 1200px"
@@ -66,35 +64,74 @@ export default function ProjectDetail() {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
-          <div className="lg:col-span-2 space-y-12">
-            <section aria-labelledby="goal-heading">
-              <h2 id="goal-heading" className="text-3xl font-black font-display text-white uppercase mb-6 tracking-tight italic border-l-4 border-violet-600 pl-6">The Goal</h2>
-              <p className="text-gray-300 text-lg font-display leading-relaxed">
-                The objective was simple: create a website that not only looks great but also works perfectly for the user. We focused on making the experience smooth and easy to understand for every visitor.
+        {/* Case Study Breakdown */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          <div className="lg:col-span-8 space-y-16">
+            <section aria-labelledby="challenge-heading">
+              <span className="text-xs uppercase tracking-widest text-violet-primary font-bold block mb-2 font-display">01 / The Challenge</span>
+              <h2 id="challenge-heading" className="text-2xl sm:text-3xl font-black font-display text-white uppercase mb-4 tracking-tight">
+                Identifying the Growth Bottleneck
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg font-display leading-relaxed">
+                {project.challenge}
               </p>
             </section>
-            <section aria-labelledby="work-heading">
-              <h2 id="work-heading" className="text-3xl font-black font-display text-white uppercase mb-6 tracking-tight italic border-l-4 border-violet-600 pl-6">What We Did</h2>
-              <p className="text-gray-300 text-lg font-display leading-relaxed">
-                We used a clean design and fast code to build a site that loads quickly and is easy to navigate. Every detail was planned to help the client reach their business goals through a better online presence.
+
+            <section aria-labelledby="solution-heading">
+              <span className="text-xs uppercase tracking-widest text-violet-primary font-bold block mb-2 font-display">02 / Strategic Solution</span>
+              <h2 id="solution-heading" className="text-2xl sm:text-3xl font-black font-display text-white uppercase mb-4 tracking-tight">
+                Design & Engineering Implementation
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg font-display leading-relaxed">
+                {project.solution}
               </p>
+            </section>
+
+            <section aria-labelledby="deliverables-heading">
+              <span className="text-xs uppercase tracking-widest text-violet-primary font-bold block mb-2 font-display">03 / Scope Delivered</span>
+              <h2 id="deliverables-heading" className="text-2xl sm:text-3xl font-black font-display text-white uppercase mb-6 tracking-tight">
+                Delivered Capabilities
+              </h2>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {project.deliverables.map((item) => (
+                  <li key={item} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10 font-display text-sm text-gray-200">
+                    <CheckCircle2 className="text-violet-primary w-5 h-5 flex-shrink-0" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
             </section>
           </div>
           
-          <aside className="space-y-12" aria-label="Project statistics">
-            <div className="glass-card p-8 rounded-2xl">
-                <h3 className="text-white font-display font-black text-xl uppercase mb-6 italic tracking-tight">Success Stats</h3>
-                <ul className="space-y-6">
-                    <li>
-                        <div className="text-3xl font-black font-display text-violet-primary mb-1">50%</div>
-                        <div className="text-gray-400 text-xs font-bold uppercase tracking-widest font-display">Faster Load Time</div>
-                    </li>
-                    <li>
-                        <div className="text-3xl font-black font-display text-violet-primary mb-1">2x</div>
-                        <div className="text-gray-400 text-xs font-bold uppercase tracking-widest font-display">More Conversions</div>
-                    </li>
-                </ul>
+          <aside className="lg:col-span-4 space-y-8" aria-label="Project statistics & outcomes">
+            <div className="glass-card p-8 rounded-3xl border border-violet-500/20 bg-violet-600/5">
+              <h3 className="text-white font-display font-black text-xl uppercase mb-6 tracking-tight">
+                Verified Outcomes
+              </h3>
+              <ul className="space-y-6">
+                {project.metrics.map((m) => (
+                  <li key={m.label} className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
+                    <div className="text-4xl font-black font-display gradient-text mb-1">{m.value}</div>
+                    <div className="text-gray-400 text-xs font-bold uppercase tracking-widest font-display">{m.label}</div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="glass-card p-8 rounded-3xl text-center space-y-6">
+              <h4 className="text-white font-bold font-display text-lg uppercase tracking-tight">
+                Need Similar Results for Your Business?
+              </h4>
+              <p className="text-gray-300 text-sm font-display leading-relaxed">
+                Let's discuss how we can redesign, build, or optimize your website for measurable organic growth.
+              </p>
+              <Link 
+                href="/contact" 
+                className="btn-primary w-full text-xs uppercase tracking-widest py-3.5 inline-flex items-center justify-center gap-2"
+              >
+                <span>Request Project Proposal</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
             </div>
           </aside>
         </div>

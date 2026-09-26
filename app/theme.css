@@ -2,33 +2,52 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", sans-serif;
   
-  --color-obsidian: #131317;
+  --color-obsidian: #0b0b0f;
   --color-violet-primary: #d0bcff;
   --color-peach-secondary: #ffb68b;
   --color-magenta-tertiary: #f5adff;
   
   --color-surface-obsidian: #131317;
   --color-surface-container-lowest: #0e0e12;
-  --color-surface-container-low: #1b1b1f;
-  --color-surface-container: #1f1f23;
-  --color-surface-container-high: #2a292e;
-  --color-surface-container-highest: #353439;
+  --color-surface-container-low: #17171c;
+  --color-surface-container: #1f1f26;
+  --color-surface-container-high: #2a2933;
+  --color-surface-container-highest: #363540;
 }
 
 @layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(208, 188, 255, 0.25) #0b0b0f;
+  }
+
   body {
     @apply bg-obsidian text-white antialiased min-h-screen selection:bg-violet-primary selection:text-obsidian;
     background-color: #0b0b0f;
+  }
+
+  /* Modern Web Guidance: Balanced and Pretty Typography */
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  p, blockquote, li {
+    text-wrap: pretty;
   }
 }
 
 @layer components {
   .glass-card {
-    @apply bg-surface-obsidian/60 border border-white/10 backdrop-blur-xl transition-all duration-300;
+    @apply bg-[#131317]/70 border border-white/10 backdrop-blur-xl transition-all duration-300;
   }
   
   .glass-card:hover {
-    @apply border-white/20 shadow-[0_0_40px_rgba(106,0,244,0.3)];
+    @apply border-white/25 shadow-[0_0_40px_rgba(106,0,244,0.25)];
   }
 
   .gradient-text {
@@ -36,11 +55,46 @@
   }
 
   .btn-primary {
-    @apply bg-gradient-to-r from-[#6a00f4] to-[#ff00e5] text-white px-8 py-3 rounded-full font-bold transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,0,229,0.5)] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black;
+    @apply inline-flex items-center justify-center bg-gradient-to-r from-[#6a00f4] to-[#c800ff] text-white px-8 py-3.5 rounded-full font-bold tracking-wider font-display transition-all duration-300 hover:shadow-[0_0_30px_rgba(200,0,255,0.45)] hover:scale-[1.02] active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer;
   }
 
   .btn-secondary {
-    @apply border border-white/20 text-white px-8 py-3 rounded-full font-bold transition-all duration-300 hover:bg-white/5 hover:border-violet-primary active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black;
+    @apply inline-flex items-center justify-center border border-white/20 bg-white/5 text-white px-8 py-3.5 rounded-full font-bold tracking-wider font-display transition-all duration-300 hover:bg-white/10 hover:border-violet-primary active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black cursor-pointer;
+  }
+
+  /* Defer offscreen rendering for performance */
+  .cv-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 700px;
+  }
+
+  /* Accessible Modern Form Validation (Modern Web Guidance) */
+  .form-field {
+    @apply flex flex-col gap-1.5 text-left;
+  }
+
+  .form-hint {
+    @apply text-xs text-gray-400 font-display block;
+  }
+
+  .form-input {
+    @apply w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3.5 text-white placeholder-gray-400 font-display transition-all focus:outline-none focus:border-violet-primary focus:ring-2 focus:ring-violet-primary/50;
+  }
+
+  .form-input:user-invalid {
+    @apply border-rose-500 bg-rose-500/10 focus:ring-rose-500/40;
+  }
+
+  .form-input:user-valid:not(:placeholder-shown) {
+    @apply border-emerald-400/80 bg-emerald-500/5 focus:ring-emerald-400/30;
+  }
+
+  .field-error {
+    @apply hidden text-xs text-rose-400 font-display items-center gap-1.5 mt-1;
+  }
+
+  .form-input:user-invalid + .field-error {
+    @apply flex;
   }
 }
 
@@ -57,8 +111,8 @@
   width: 100vw;
   height: 100vh;
   background: 
-    radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.12) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(255, 127, 28, 0.08) 0%, transparent 40%);
+    radial-gradient(circle at 20% 30%, rgba(106, 0, 244, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(255, 127, 28, 0.08) 0%, transparent 45%);
   z-index: -1;
   pointer-events: none;
 }
@@ -72,4 +126,13 @@
   opacity: 0.8;
   pointer-events: none;
   z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

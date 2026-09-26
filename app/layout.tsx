@@ -25,25 +25,25 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Creative Realm | Crafting Digital Excellence",
-    template: "%s | Creative Realm",
+    default: "Creative Realm Designs | Website Design, Development & SEO Agency",
+    template: "%s | Creative Realm Designs",
   },
-  description: "A premier digital agency specializing in UI/UX design, custom web development, brand strategy, and high-performance digital experiences.",
-  keywords: ["digital agency", "web design", "UI/UX design", "web development", "SEO", "brand identity"],
-  authors: [{ name: "Creative Realm" }],
+  description: "A premier digital agency specializing in bespoke website design, ultra-fast Next.js web development, and Google SEO growth that drives qualified business inquiries.",
+  keywords: ["digital agency", "website design", "web development", "SEO agency", "Next.js development", "UI/UX design", "Core Web Vitals"],
+  authors: [{ name: "Creative Realm Designs" }],
   metadataBase: new URL("https://creative-realm-designs-getj.vercel.app"),
   openGraph: {
-    title: "Creative Realm | Crafting Digital Excellence",
-    description: "A premier digital agency specializing in UI/UX design, custom web development, and digital innovation.",
+    title: "Creative Realm Designs | Website Design, Development & SEO Agency",
+    description: "A premier digital agency specializing in bespoke website design, ultra-fast Next.js web development, and Google SEO growth.",
     url: "https://creative-realm-designs-getj.vercel.app",
-    siteName: "Creative Realm",
-    locale: "en_US",
+    siteName: "Creative Realm Designs",
+    locale: "en_GB",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Creative Realm | Crafting Digital Excellence",
-    description: "A premier digital agency specializing in UI/UX design, custom web development, and digital innovation.",
+    title: "Creative Realm Designs | Website Design, Development & SEO Agency",
+    description: "A premier digital agency specializing in bespoke website design, ultra-fast Next.js web development, and Google SEO growth.",
   },
   robots: {
     index: true,
@@ -57,7 +57,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" dir="ltr" className="dark" suppressHydrationWarning>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans bg-obsidian text-on-background min-h-screen flex flex-col relative antialiased selection:bg-violet-primary selection:text-obsidian`}>
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10001] focus:px-6 focus:py-3 focus:bg-violet-primary focus:text-black focus:font-bold focus:rounded-full">
           Skip to main content
