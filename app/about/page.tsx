@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { 
@@ -111,19 +108,15 @@ export default function AboutPage() {
               { n: "02", t: "UI/UX DESIGN", d: "We design complete interactive Figma prototypes. You test every screen and provide feedback before code starts." },
               { n: "03", t: "NEXT.JS BUILD", d: "We develop your website with clean code, testing rigorously across mobile, tablet, and desktop devices." },
               { n: "04", t: "SEO & LAUNCH", d: "We run Core Web Vitals checks, set up Google Search Console, and launch with full security and analytics in place." }
-            ].map((step, i) => (
-              <motion.div 
+            ].map((step) => (
+              <div 
                 key={step.t}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
                 className="glass-card p-8 group rounded-2xl border border-white/10"
               >
                 <div className="text-4xl font-black font-display text-violet-primary/50 group-hover:text-violet-primary transition-colors mb-4" aria-hidden="true">{step.n}</div>
                 <h3 className="text-white font-black font-display text-base uppercase mb-2 tracking-tight">{step.t}</h3>
                 <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-display">{step.d}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>
@@ -165,13 +158,9 @@ export default function AboutPage() {
                 focus: "Technical SEO • Keyword Hierarchy • Google Indexing",
                 desc: "Ensures your website structure is fully optimized so search engines index your pages and drive qualified, organic prospective clients."
               }
-            ].map((discipline, i) => (
-              <motion.div
+            ].map((discipline) => (
+              <div
                 key={discipline.role}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
                 className="glass-card p-8 rounded-3xl border border-white/10 hover:border-violet-500/40 flex flex-col justify-between"
               >
                 <div>
@@ -193,7 +182,7 @@ export default function AboutPage() {
                     {discipline.focus}
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>

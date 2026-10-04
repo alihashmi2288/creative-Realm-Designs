@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink, ArrowUpRight, CheckCircle2 } from "lucide-react";
@@ -19,9 +18,7 @@ export default function PortfolioPage() {
     <div className="py-24 px-6 sm:px-12 md:px-24">
       <div className="max-w-7xl mx-auto">
         <header className="mb-20">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
+          <div
             className="flex flex-col md:flex-row md:items-end justify-between gap-8"
           >
             <div className="max-w-2xl">
@@ -51,21 +48,15 @@ export default function PortfolioPage() {
                 </button>
               ))}
             </div>
-          </motion.div>
+          </div>
         </header>
 
         <div id="portfolio-grid" role="region" aria-label="Portfolio projects" className="grid grid-cols-1 gap-28">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project: Project) => (
-              <motion.div
-                key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.35 }}
-                className="group"
-              >
+          {filteredProjects.map((project: Project) => (
+            <div
+              key={project.id}
+              className="group transition-opacity duration-300"
+            >
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                   <div className="lg:col-span-7 overflow-hidden rounded-[2.5rem] relative aspect-[16/10] bg-surface-container shadow-xl">
                     <Image 
@@ -122,7 +113,7 @@ export default function PortfolioPage() {
                     
                     <Link 
                       href={`/portfolio/${project.slug}`} 
-                      aria-label={`View full case study for ${project.title}`}
+                      aria-label={`Read Case Study - Full case study for ${project.title}`}
                       className="inline-flex items-center gap-3 text-white font-black font-display uppercase tracking-widest text-sm group/link interactive focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-full px-2 py-1"
                     >
                       <span>Read Case Study</span>
@@ -132,9 +123,8 @@ export default function PortfolioPage() {
                     </Link>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </AnimatePresence>
         </div>
         
         {/* Results / Verified Agency Benchmarks */}
@@ -172,7 +162,7 @@ export default function PortfolioPage() {
             <Link 
               href="/contact" 
               className="btn-primary text-base px-10 py-4"
-              aria-label="Request a consultation with Creative Realm"
+              aria-label="Schedule free strategy call - Request a consultation with Creative Realm"
             >
               SCHEDULE FREE STRATEGY CALL
             </Link>

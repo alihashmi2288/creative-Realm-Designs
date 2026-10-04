@@ -1,79 +1,91 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 export default function CustomCursor() {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isHidden, setIsHidden] = useState(true);
   const [isPointerDevice, setIsPointerDevice] = useState(false);
-
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-
-  const springConfig = { damping: 25, stiffness: 250 };
-  const springX = useSpring(cursorX, springConfig);
-  const springY = useSpring(cursorY, springConfig);
+  const cursorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Only run custom cursor logic on devices with fine pointer (mouse), not touchscreens
+    // Only initialize and bind event listeners on devices with a fine pointer (mouse)
     const mediaQuery = window.matchMedia("(pointer: fine)");
-    setIsPointerDevice(mediaQuery.matches);
-
     if (!mediaQuery.matches) return;
+    setIsPointerDevice(true);
+
+    let mouseX = -100;
+    let mouseY = -100;
+    let currentX = -100;
+    let currentY = -100;
+    let isHidden = true;
+    let isHovered = false;
+    let rafId: number;
 
     const moveCursor = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (isHidden) setIsHidden(false);
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      if (isHidden) {
+        isHidden = false;
+        if (cursorRef.current) cursorRef.current.style.opacity = "1";
+      }
     };
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
       if (!target) return;
-      const isInteractive = 
+      const interactive = 
         target.closest("button") || 
         target.closest("a") || 
         target.closest(".interactive") ||
         target.closest("input") ||
         target.closest("textarea");
       
-      setIsHovered(!!isInteractive);
+      isHovered = !!interactive;
     };
 
-    const handleMouseLeave = () => setIsHidden(true);
-    const handleMouseEnter = () => setIsHidden(false);
+    const handleMouseLeave = () => {
+      isHidden = true;
+      if (cursorRef.current) cursorRef.current.style.opacity = "0";
+    };
+
+    const handleMouseEnter = () => {
+      isHidden = false;
+      if (cursorRef.current) cursorRef.current.style.opacity = "1";
+    };
+
+    // Smooth 60/120fps lerp loop without react re-renders
+    const loop = () => {
+      const ease = 0.18;
+      currentX += (mouseX - currentX) * ease;
+      currentY += (mouseY - currentY) * ease;
+
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%) scale(${isHovered ? 2.2 : 1})`;
+      }
+      rafId = requestAnimationFrame(loop);
+    };
 
     window.addEventListener("mousemove", moveCursor, { passive: true });
     window.addEventListener("mouseover", handleMouseOver, { passive: true });
     document.addEventListener("mouseleave", handleMouseLeave);
     document.addEventListener("mouseenter", handleMouseEnter);
+    rafId = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("mousemove", moveCursor);
       window.removeEventListener("mouseover", handleMouseOver);
       document.removeEventListener("mouseleave", handleMouseLeave);
       document.removeEventListener("mouseenter", handleMouseEnter);
+      cancelAnimationFrame(rafId);
     };
-  }, [cursorX, cursorY, isHidden]);
+  }, []);
 
   if (!isPointerDevice) return null;
 
   return (
-    <motion.div
+    <div
+      ref={cursorRef}
       aria-hidden="true"
-      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference hidden md:block"
-      style={{
-        x: springX,
-        y: springY,
-        translateX: "-50%",
-        translateY: "-50%",
-        opacity: isHidden ? 0 : 1,
-      }}
-      animate={{
-        scale: isHovered ? 2.2 : 1,
-      }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] mix-blend-difference opacity-0 transition-transform duration-100 ease-out will-change-transform bg-white hidden md:block"
     />
   );
 }

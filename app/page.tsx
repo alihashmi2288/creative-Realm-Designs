@@ -23,7 +23,7 @@ export default function HomePage() {
         {/* Optimized Non-blocking Hero Background */}
         <HeroBackground />
 
-        <div className="max-w-5xl z-10 px-4 py-20 hero-animate">
+        <div className="max-w-5xl z-10 px-4 py-20">
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-primary text-xs font-bold uppercase tracking-[0.3em] mb-6 font-display">
               <Sparkles size={14} aria-hidden="true" />
@@ -43,16 +43,18 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link 
                 href="/contact" 
+                prefetch={false}
                 className="btn-primary text-base px-9 py-4 inline-flex items-center gap-2"
-                aria-label="Start your project with Creative Realm"
+                aria-label="Get a free proposal - Start your project with Creative Realm"
               >
                 <span>GET A FREE PROPOSAL</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </Link>
               <Link 
                 href="/portfolio" 
+                prefetch={false}
                 className="btn-secondary text-base px-8 py-4"
-                aria-label="Explore our work and verified case studies"
+                aria-label="View case studies - Explore our work and verified results"
               >
                 VIEW CASE STUDIES
               </Link>
@@ -207,6 +209,7 @@ export default function HomePage() {
 
                 <Link 
                   href="/services" 
+                  prefetch={false}
                   className="text-xs font-bold font-display uppercase tracking-widest text-violet-primary flex items-center gap-2 group/btn hover:text-white transition-colors"
                 >
                   <span>Explore Capabilities</span>
@@ -268,8 +271,9 @@ export default function HomePage() {
             </div>
             <Link 
               href="/portfolio" 
+              prefetch={false}
               className="group flex items-center gap-3 text-white font-bold font-display uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-full px-4 py-2.5 border border-white/10 hover:border-violet-primary transition-all"
-              aria-label="View all portfolio projects"
+              aria-label="Explore all projects - View full portfolio"
             >
               <span>Explore All Projects</span>
               <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" aria-hidden="true" />
@@ -296,7 +300,7 @@ export default function HomePage() {
               <Link 
                 href={`/portfolio/${p.slug}`}
                 key={p.t}
-                aria-label={`View case study for ${p.t}`}
+                prefetch={false}
                 className="group block interactive rounded-[2rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary"
               >
                 <div className="aspect-[4/3] overflow-hidden rounded-[2rem] mb-6 relative bg-surface-container shadow-xl">
@@ -407,15 +411,17 @@ export default function HomePage() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link 
               href="/contact" 
+              prefetch={false}
               className="btn-primary text-base px-10 py-4"
-              aria-label="Request your free consultation"
+              aria-label="Request a free strategy call - Free consultation"
             >
               REQUEST A FREE STRATEGY CALL
             </Link>
             <Link 
               href="/services" 
+              prefetch={false}
               className="btn-secondary text-base px-8 py-4"
-              aria-label="View our packages and pricing"
+              aria-label="Explore our packages - View services and pricing"
             >
               EXPLORE OUR PACKAGES
             </Link>

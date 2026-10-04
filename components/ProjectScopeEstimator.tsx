@@ -127,6 +127,7 @@ export default function ProjectScopeEstimator() {
               </div>
               <Link 
                 href="/contact" 
+                prefetch={false}
                 className="btn-primary w-full text-xs uppercase tracking-widest py-3.5"
               >
                 Book This Service

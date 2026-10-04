@@ -1,8 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
-import { Check } from "lucide-react";
+import NewsletterForm from "@/components/NewsletterForm";
 
 const socialLinks = [
   { label: "Follow us on X (Twitter)", icon: "𝕏", href: "https://x.com" },
@@ -12,7 +9,6 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [subscribed, setSubscribed] = useState(false);
 
   return (
     <footer className="border-t border-white/10 bg-black py-24 relative overflow-hidden" role="contentinfo">
@@ -44,22 +40,22 @@ export default function Footer() {
           <div className="lg:col-span-2 lg:ml-auto">
             <h4 className="text-white font-display text-xs font-bold uppercase tracking-[0.3em] mb-6">Navigation</h4>
             <ul className="space-y-3.5 text-sm font-display text-gray-400">
-              <li><Link href="/" className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Home</Link></li>
-              <li><Link href="/about" className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">About Agency</Link></li>
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Services & Pricing</Link></li>
-              <li><Link href="/portfolio" className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Case Studies</Link></li>
-              <li><Link href="/contact" className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Get in Touch</Link></li>
+              <li><Link href="/" prefetch={false} className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Home</Link></li>
+              <li><Link href="/about" prefetch={false} className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">About Agency</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Services & Pricing</Link></li>
+              <li><Link href="/portfolio" prefetch={false} className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Case Studies</Link></li>
+              <li><Link href="/contact" prefetch={false} className="hover:text-violet-primary transition-colors focus-visible:outline-none focus-visible:underline">Get in Touch</Link></li>
             </ul>
           </div>
 
           <div className="lg:col-span-3">
             <h4 className="text-white font-display text-xs font-bold uppercase tracking-[0.3em] mb-6">Core Services</h4>
             <ul className="space-y-3.5 text-sm font-display text-gray-400">
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors">Bespoke Website Design</Link></li>
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors">Next.js Web Development</Link></li>
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors">SEO & Google Visibility</Link></li>
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors">Mobile Speed Optimization</Link></li>
-              <li><Link href="/services" className="hover:text-violet-primary transition-colors">Conversion Rate Audits</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors">Bespoke Website Design</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors">Next.js Web Development</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors">SEO & Google Visibility</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors">Mobile Speed Optimization</Link></li>
+              <li><Link href="/services" prefetch={false} className="hover:text-violet-primary transition-colors">Conversion Rate Audits</Link></li>
             </ul>
           </div>
 
@@ -68,32 +64,7 @@ export default function Footer() {
             <p className="text-gray-400 text-xs sm:text-sm font-display mb-4">
               Get monthly actionable tips on website conversions, speed optimization, and search rankings.
             </p>
-            {subscribed ? (
-              <div className="p-3.5 rounded-xl bg-violet-600/20 border border-violet-500/30 flex items-center gap-2 text-violet-primary text-xs font-display font-bold">
-                <Check size={16} />
-                <span>Thank you! You are subscribed.</span>
-              </div>
-            ) : (
-              <form className="relative" onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }}>
-                <label htmlFor="newsletter-email" className="sr-only">Email address for agency newsletter</label>
-                <input 
-                  id="newsletter-email"
-                  name="email"
-                  type="email" 
-                  required
-                  autoComplete="email"
-                  placeholder="your.email@company.com" 
-                  className="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 text-sm text-white font-display placeholder-gray-400 focus:outline-none focus:border-violet-primary focus-visible:ring-2 focus-visible:ring-violet-primary transition-colors pr-20"
-                />
-                <button 
-                  type="submit" 
-                  aria-label="Subscribe to newsletter"
-                  className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-violet-primary text-black font-black font-display text-xs uppercase tracking-wider rounded-lg hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
-                >
-                  Join
-                </button>
-              </form>
-            )}
+            <NewsletterForm />
           </div>
         </div>
         
@@ -103,9 +74,9 @@ export default function Footer() {
             <p>Engineered for Speed & Conversions.</p>
           </div>
           <div className="flex gap-6">
-            <Link href="/contact" className="hover:text-white transition-colors">Start Project</Link>
-            <Link href="/portfolio" className="hover:text-white transition-colors">Case Studies</Link>
-            <Link href="/services" className="hover:text-white transition-colors">Services</Link>
+            <Link href="/contact" prefetch={false} className="hover:text-white transition-colors">Start Project</Link>
+            <Link href="/portfolio" prefetch={false} className="hover:text-white transition-colors">Case Studies</Link>
+            <Link href="/services" prefetch={false} className="hover:text-white transition-colors">Services</Link>
           </div>
         </div>
       </div>

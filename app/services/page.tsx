@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
@@ -71,10 +68,7 @@ export default function ServicesPage() {
     <div className="py-24 px-6 sm:px-12 md:px-24">
       <div className="max-w-7xl mx-auto">
         <header className="mb-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <div>
             <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.4em] mb-3 block">
               What We Offer
             </span>
@@ -84,20 +78,16 @@ export default function ServicesPage() {
             <p className="text-gray-300 max-w-2xl mx-auto text-base sm:text-lg font-display">
               We focus on the three things that matter most for your online success: <strong>Design that impresses</strong>, <strong>Code that loads fast</strong>, and <strong>SEO that brings customers</strong>.
             </p>
-          </motion.div>
+          </div>
         </header>
 
         {/* Services Grid */}
         <section aria-labelledby="services-list-heading" className="mb-32">
           <h2 id="services-list-heading" className="sr-only">Our Core Services</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, i) => (
-              <motion.div
+            {services.map((service) => (
+              <div
                 key={service.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
-                viewport={{ once: true }}
                 className="glass-card p-8 sm:p-10 group relative flex flex-col justify-between rounded-3xl border border-white/10 hover:border-violet-500/40"
               >
                 <div>
@@ -129,13 +119,13 @@ export default function ServicesPage() {
                 
                 <Link 
                   href="/contact" 
-                  aria-label={`Inquire about ${service.title}`}
+                  aria-label={`Discuss Your Project - Inquire about ${service.title}`}
                   className="inline-flex items-center justify-between w-full py-3 px-4 rounded-xl bg-white/5 border border-white/10 hover:border-violet-primary hover:bg-violet-600/10 text-white font-display text-xs uppercase font-bold tracking-wider transition-all"
                 >
                   <span>Discuss Your Project</span>
                   <ArrowRight size={14} className="text-violet-primary" aria-hidden="true" />
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>
@@ -244,13 +234,9 @@ export default function ServicesPage() {
                 ],
                 recommended: false
               }
-            ].map((pkg, i) => (
-              <motion.div
+            ].map((pkg) => (
+              <div
                 key={pkg.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
                 className={`glass-card p-8 sm:p-10 relative flex flex-col justify-between rounded-3xl border ${pkg.recommended ? 'border-violet-primary/60 shadow-[0_0_50px_rgba(106,0,244,0.25)]' : 'border-white/10'}`}
               >
                 {pkg.recommended && (
@@ -275,12 +261,12 @@ export default function ServicesPage() {
                 
                 <Link 
                   href="/contact" 
-                  aria-label={`Get started with the ${pkg.name} package`}
+                  aria-label={`Request Package Details - ${pkg.name} package`}
                   className={`w-full text-center py-4 rounded-xl font-black font-display text-xs uppercase tracking-widest transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary ${pkg.recommended ? 'bg-violet-primary text-black hover:bg-white' : 'bg-white/10 text-white hover:bg-white hover:text-black'}`}
                 >
                   Request Package Details
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </section>

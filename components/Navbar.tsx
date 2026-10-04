@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
 import { Menu, X, ArrowRight } from "lucide-react";
 
 const navLinks = [
@@ -47,6 +46,7 @@ export default function Navbar() {
       <nav aria-label="Main Navigation" className="max-w-7xl mx-auto px-6 sm:px-12 h-20 sm:h-24 flex justify-between items-center relative z-[1000]">
         <Link 
           href="/" 
+          prefetch={false}
           className="text-xl sm:text-2xl font-black tracking-tighter text-white uppercase font-display z-[1000] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg"
           aria-label="Creative Realm Homepage"
         >
@@ -60,6 +60,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
+                prefetch={false}
                 role="menuitem"
                 aria-current={isActive ? "page" : undefined}
                 className={`relative px-1 font-display font-bold text-xs uppercase tracking-[0.2em] transition-colors duration-200 h-full flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary ${
@@ -68,10 +69,9 @@ export default function Navbar() {
               >
                 {link.name}
                 {isActive && (
-                  <motion.div
-                    layoutId="nav-underline"
-                    className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-violet-primary"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  <span
+                    className="absolute bottom-[-1px] left-0 right-0 h-[2px] bg-violet-primary shadow-[0_0_10px_rgba(208,188,255,0.7)]"
+                    aria-hidden="true"
                   />
                 )}
               </Link>
@@ -82,6 +82,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4 z-[1000]">
           <Link 
             href="/contact" 
+            prefetch={false}
             aria-label="Start a project with Creative Realm"
             className="group relative hidden sm:flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-full"
           >
@@ -92,7 +93,7 @@ export default function Navbar() {
           </Link>
           <button 
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-lg z-[1000]"
+            className="md:hidden text-white p-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-lg z-[1000] cursor-pointer"
             aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
             aria-expanded={isOpen}
             aria-controls="mobile-navigation"
@@ -102,60 +103,54 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            id="mobile-navigation"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Mobile Navigation Menu"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[999] md:hidden flex flex-col pt-32 px-10"
-          >
-            <div className="flex flex-col gap-6" role="menu">
-              {navLinks.map((link, i) => {
-                const isActive = pathname === link.href;
-                return (
-                  <motion.div
-                    key={link.name}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + i * 0.03 }}
-                  >
-                    <Link
-                      href={link.href}
-                      role="menuitem"
-                      aria-current={isActive ? "page" : undefined}
-                      className={`text-3xl font-black font-display uppercase tracking-tight transition-colors ${
-                        isActive ? "gradient-text" : "text-white hover:text-violet-primary"
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </motion.div>
-                );
-              })}
-            </div>
-            
-            <div className="mt-12 pt-8 border-t border-white/10">
-              <Link 
-                href="/contact"
-                className="btn-primary w-full text-center text-xs uppercase tracking-widest py-3.5 block mb-8"
-              >
-                REQUEST PROJECT PROPOSAL
-              </Link>
-              <div className="flex gap-6 text-gray-400 font-display text-xs uppercase tracking-wider">
-                <a href="mailto:hello@creativerealm.co.uk" className="hover:text-white">Email Us</a>
-                <span>•</span>
-                <a href="tel:+442079460123" className="hover:text-white">+44 (0)20 7946 0123</a>
+      {/* Mobile Menu Overlay - Hardware-accelerated CSS transition */}
+      <div
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile Navigation Menu"
+        className={`fixed inset-0 bg-black z-[999] md:hidden flex flex-col pt-32 px-10 transition-all duration-300 ease-out ${
+          isOpen 
+            ? "opacity-100 pointer-events-auto translate-y-0" 
+            : "opacity-0 pointer-events-none -translate-y-4"
+        }`}
+      >
+        <div className="flex flex-col gap-6" role="menu">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <div key={link.name}>
+                <Link
+                  href={link.href}
+                  prefetch={false}
+                  role="menuitem"
+                  aria-current={isActive ? "page" : undefined}
+                  className={`text-3xl font-black font-display uppercase tracking-tight transition-colors ${
+                    isActive ? "gradient-text" : "text-white hover:text-violet-primary"
+                  }`}
+                >
+                  {link.name}
+                </Link>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            );
+          })}
+        </div>
+        
+        <div className="mt-12 pt-8 border-t border-white/10">
+          <Link 
+            href="/contact" 
+            prefetch={false}
+            className="btn-primary w-full text-center text-xs uppercase tracking-widest py-3.5 block mb-8"
+          >
+            REQUEST PROJECT PROPOSAL
+          </Link>
+          <div className="flex gap-6 text-gray-400 font-display text-xs uppercase tracking-wider">
+            <a href="mailto:hello@creativerealm.co.uk" className="hover:text-white">Email Us</a>
+            <span>•</span>
+            <a href="tel:+442079460123" className="hover:text-white">+44 (0)20 7946 0123</a>
+          </div>
+        </div>
+      </div>
     </header>
   );
 }

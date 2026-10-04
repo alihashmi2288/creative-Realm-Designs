@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useId } from "react";
-import { motion } from "motion/react";
 import { Send, MapPin, Mail, Phone, CheckCircle, Clock, ShieldCheck, ArrowRight } from "lucide-react";
 
 export default function ContactPage() {
@@ -30,10 +29,7 @@ export default function ContactPage() {
     <div className="py-24 px-6 sm:px-12 md:px-24">
       <div className="max-w-7xl mx-auto">
         <header className="mb-20 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
+          <div>
             <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.4em] mb-3 block">
               Direct Agency Inquiry
             </span>
@@ -43,7 +39,7 @@ export default function ContactPage() {
             <p className="text-gray-300 max-w-xl mx-auto text-base sm:text-lg font-display">
               Whether you need a new website designed, modern code built, or your Google rankings improved, we are here to help.
             </p>
-          </motion.div>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
