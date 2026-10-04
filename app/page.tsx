@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-import { motion } from "motion/react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
@@ -16,76 +12,19 @@ import {
   Clock,
   Sparkles
 } from "lucide-react";
+import HeroBackground from "@/components/HeroBackground";
+import ProjectScopeEstimator from "@/components/ProjectScopeEstimator";
 
 export default function HomePage() {
-  const [selectedService, setSelectedService] = useState<"design" | "dev" | "seo">("design");
-
-  const serviceEstimates = {
-    design: {
-      title: "Bespoke Website Design",
-      tagline: "Engage visitors and turn them into loyal customers.",
-      timeline: "2 to 3 weeks",
-      deliverables: [
-        "User Journey & Conversion Wireframing",
-        "Interactive Figma Clickable Prototype",
-        "Mobile-First Responsive Layouts",
-        "Custom Visual Branding & Asset Curation"
-      ],
-      idealFor: "Businesses seeking a modern, high-converting redesign without template cliches."
-    },
-    dev: {
-      title: "Modern Web Development",
-      tagline: "Lightning-fast, clean code that performs effortlessly on any device.",
-      timeline: "3 to 4 weeks",
-      deliverables: [
-        "Modern Next.js & React Clean Architecture",
-        "98+ Google PageSpeed Optimization",
-        "Seamless Mobile & Cross-Browser Testing",
-        "WCAG Accessibility Compliance & Security Hardening"
-      ],
-      idealFor: "Companies needing an ultra-responsive, secure website with instant page loads."
-    },
-    seo: {
-      title: "Search Engine Optimization (SEO)",
-      tagline: "Get found on Google by customers actively searching for your services.",
-      timeline: "Ongoing 90-day sprints",
-      deliverables: [
-        "Comprehensive Technical SEO Audit",
-        "High-Intent Keyword Architecture",
-        "Rich Snippet Schema Markup & Metadata",
-        "Google Search Console & Analytics Tracking"
-      ],
-      idealFor: "Brands wanting sustainable organic traffic and consistent inbound inquiries."
-    }
-  };
-
-  const activeScope = serviceEstimates[selectedService];
-
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="relative min-h-[92vh] flex items-center justify-center text-center px-6 sm:px-12 md:px-24 overflow-hidden" aria-labelledby="hero-title">
-        {/* Video Background */}
-        <div className="absolute inset-0 z-0 bg-obsidian">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            preload="metadata"
-            className="w-full h-full object-cover opacity-30"
-          >
-            <source src="/hero-video.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-obsidian" aria-hidden="true" />
-        </div>
+        {/* Optimized Non-blocking Hero Background */}
+        <HeroBackground />
 
-        <div className="max-w-5xl z-10 px-4 py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+        <div className="max-w-5xl z-10 px-4 py-20 hero-animate">
+          <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-primary text-xs font-bold uppercase tracking-[0.3em] mb-6 font-display">
               <Sparkles size={14} aria-hidden="true" />
               <span>Digital Agency • Design • Development • SEO</span>
@@ -138,12 +77,12 @@ export default function HomePage() {
                 <span className="text-xs text-gray-300 font-display font-medium">Guaranteed Milestones</span>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Trust & Purpose Section */}
-      <section className="py-24 px-6 sm:px-12 md:px-24 bg-black/40 backdrop-blur-3xl border-y border-white/5" aria-labelledby="philosophy-heading">
+      <section className="py-24 px-6 sm:px-12 md:px-24 bg-black/40 backdrop-blur-3xl border-y border-white/5 cv-auto" aria-labelledby="philosophy-heading">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div>
@@ -183,6 +122,7 @@ export default function HomePage() {
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="relative z-10 p-4 rounded-2xl bg-black/60 backdrop-blur-md border border-white/10">
                   <div className="flex items-center gap-2 mb-2">
@@ -199,7 +139,7 @@ export default function HomePage() {
       </section>
 
       {/* The 3 Core Pillars (What We Do) */}
-      <section className="py-28 px-6 sm:px-12 md:px-24" aria-labelledby="services-heading">
+      <section className="py-28 px-6 sm:px-12 md:px-24 cv-auto" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.4em] mb-3 block">
@@ -236,14 +176,10 @@ export default function HomePage() {
                 desc: "We structure your site so Google ranks it for the exact search terms your prospective buyers are typing every single day.",
                 features: ["Keyword Architecture", "On-Page Metadata & Schema", "Search Console Indexing", "Local & Regional Ranking"]
               }
-            ].map((feature, i) => (
-              <motion.div 
+            ].map((feature) => (
+              <div 
                 key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="glass-card p-10 flex flex-col justify-between rounded-3xl border border-white/10 group hover:border-violet-500/40"
+                className="glass-card p-10 flex flex-col justify-between rounded-3xl border border-white/10 group hover:border-violet-500/40 transition-all duration-300"
               >
                 <div>
                   <div className="w-14 h-14 rounded-2xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-violet-primary mb-6 group-hover:scale-110 transition-transform">
@@ -276,102 +212,16 @@ export default function HomePage() {
                   <span>Explore Capabilities</span>
                   <ArrowRight size={14} className="group-hover/btn:translate-x-1 transition-transform" aria-hidden="true" />
                 </Link>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* Interactive Project Scope & Turnaround Preview */}
-      <section className="py-24 px-6 sm:px-12 md:px-24 bg-surface-container-low/40 border-y border-white/10 cv-auto" aria-labelledby="scope-estimator-heading">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <span className="text-violet-primary font-display text-xs font-bold uppercase tracking-[0.4em] mb-2 block">
-              Transparent Execution
-            </span>
-            <h2 id="scope-estimator-heading" className="text-3xl md:text-5xl font-black font-display text-white uppercase tracking-tighter mb-4">
-              What Does Your Project Need?
-            </h2>
-            <p className="text-gray-400 font-display text-sm sm:text-base max-w-xl mx-auto">
-              Select a service below to see exact deliverables and realistic project timelines with zero guesswork.
-            </p>
-          </div>
+      <ProjectScopeEstimator />
 
-          <div className="flex justify-center gap-2 sm:gap-4 mb-10 flex-wrap" role="tablist" aria-label="Select service to preview scope">
-            {[
-              { id: "design", label: "1. Website Design" },
-              { id: "dev", label: "2. Web Development" },
-              { id: "seo", label: "3. SEO Growth" }
-            ].map(tab => (
-              <button
-                key={tab.id}
-                role="tab"
-                aria-selected={selectedService === tab.id}
-                onClick={() => setSelectedService(tab.id as "design" | "dev" | "seo")}
-                className={`px-5 py-2.5 rounded-full font-display text-xs uppercase tracking-wider font-bold transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary ${
-                  selectedService === tab.id
-                    ? "bg-violet-primary text-black shadow-lg shadow-violet-primary/20"
-                    : "bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white border border-white/10"
-                }`}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          <div className="glass-card p-8 sm:p-12 rounded-3xl border border-white/15">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7">
-                <span className="text-xs uppercase tracking-widest text-violet-primary font-bold block mb-2 font-display">
-                  Service Overview
-                </span>
-                <h3 className="text-3xl font-black font-display text-white uppercase tracking-tight mb-3">
-                  {activeScope.title}
-                </h3>
-                <p className="text-gray-300 text-base font-display mb-6">
-                  {activeScope.tagline}
-                </p>
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-6">
-                  <div className="text-xs uppercase font-bold text-gray-400 mb-1 font-display">Target Client Fit</div>
-                  <div className="text-sm text-gray-200 font-display">{activeScope.idealFor}</div>
-                </div>
-                
-                <h4 className="text-white text-xs font-bold uppercase tracking-wider font-display mb-3">Included Deliverables:</h4>
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {activeScope.deliverables.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-xs text-gray-300 font-display">
-                      <CheckCircle2 size={15} className="text-violet-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="lg:col-span-5 p-8 rounded-2xl bg-black/50 border border-white/10 text-center flex flex-col justify-between h-full">
-                <div>
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-gray-400 font-display block mb-1">
-                    Typical Delivery Time
-                  </span>
-                  <div className="text-3xl sm:text-4xl font-black font-display gradient-text mb-4">
-                    {activeScope.timeline}
-                  </div>
-                  <p className="text-xs text-gray-400 font-display mb-6">
-                    Structured with clear milestone reviews. You will see and test your website every single week.
-                  </p>
-                </div>
-                <Link 
-                  href="/contact" 
-                  className="btn-primary w-full text-xs uppercase tracking-widest py-3.5"
-                >
-                  Book This Service
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Verified Performance Benchmarks (Replacing generic filler stats) */}
+      {/* Verified Performance Benchmarks */}
       <section className="py-24 px-6 sm:px-12 md:px-24 bg-violet-600/5 overflow-hidden relative cv-auto" aria-label="Our measurable agency standards">
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center mb-16">
@@ -389,19 +239,15 @@ export default function HomePage() {
               { label: "Avg. Organic Search Lift", value: "+185%", desc: "Measured across 6-month audits" },
               { label: "On-Time Milestone Rate", value: "100%", desc: "Direct project manager communication" },
               { label: "Mobile-First Accessibility", value: "WCAG", desc: "Compliant for all users & screens" }
-            ].map((stat, i) => (
-              <motion.div
+            ].map((stat) => (
+              <div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-                viewport={{ once: true }}
-                className="glass-card p-8 rounded-2xl text-center border border-white/10"
+                className="glass-card p-8 rounded-2xl text-center border border-white/10 hover:border-violet-500/30 transition-all duration-300"
               >
                 <div className="text-5xl sm:text-6xl font-black font-display gradient-text mb-3 tracking-tighter">{stat.value}</div>
                 <div className="text-xs uppercase tracking-wider text-white font-bold mb-1.5 font-display">{stat.label}</div>
                 <div className="text-xs text-gray-400 font-display">{stat.desc}</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -422,7 +268,7 @@ export default function HomePage() {
             </div>
             <Link 
               href="/portfolio" 
-              className="group flex items-center gap-3 text-white font-bold font-display uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-full px-3 py-2 border border-white/10 hover:border-violet-primary transition-all"
+              className="group flex items-center gap-3 text-white font-bold font-display uppercase tracking-widest text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-primary rounded-full px-4 py-2.5 border border-white/10 hover:border-violet-primary transition-all"
               aria-label="View all portfolio projects"
             >
               <span>Explore All Projects</span>
@@ -461,6 +307,7 @@ export default function HomePage() {
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700" 
                     loading="lazy"
+                    decoding="async"
                   />
                   <div className="absolute top-4 left-4 z-10 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-violet-primary font-display text-xs font-bold uppercase tracking-wider">
                     {p.c}
@@ -517,20 +364,17 @@ export default function HomePage() {
                 service: "Custom Next.js Engineering",
                 text: "Zero technical jargon, seamless weekly updates, and a site that loads in under a second worldwide. It is rare to find an agency that delivers on both design and code." 
               }
-            ].map((t, i) => (
-              <motion.div
+            ].map((t) => (
+              <div
                 key={t.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="glass-card p-10 relative rounded-3xl flex flex-col justify-between border border-white/10"
+                className="glass-card p-10 relative rounded-3xl flex flex-col justify-between border border-white/10 hover:border-violet-500/30 transition-all duration-300"
               >
                 <div>
                   <div className="text-xs uppercase tracking-wider text-violet-primary font-bold font-display mb-4">
                     {t.service}
                   </div>
                   <p className="text-gray-200 italic mb-8 relative z-10 font-display text-sm leading-relaxed">
-                    "{t.text}"
+                    &ldquo;{t.text}&rdquo;
                   </p>
                 </div>
                 <div className="flex items-center gap-3 pt-6 border-t border-white/10">
@@ -542,7 +386,7 @@ export default function HomePage() {
                     <div className="text-gray-400 text-[11px] font-display">{t.role}</div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
@@ -558,7 +402,7 @@ export default function HomePage() {
             Ready to Build a <br /> <span className="gradient-text">Higher-Performing</span> <br /> Website?
           </h2>
           <p className="text-gray-300 text-base md:text-lg mb-10 max-w-xl mx-auto font-display">
-            Contact us today for a free 20-minute Website & SEO consultation. We'll audit your current online footprint and show you where you can win.
+            Contact us today for a free 20-minute Website & SEO consultation. We&apos;ll audit your current online footprint and show you where you can win.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4">
             <Link 
