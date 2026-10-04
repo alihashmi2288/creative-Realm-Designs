@@ -19,11 +19,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative min-h-[92vh] flex items-center justify-center text-center px-6 sm:px-12 md:px-24 overflow-hidden" aria-labelledby="hero-title">
+      <section className="relative min-h-[calc(100vh-6rem)] flex items-center justify-center text-center px-6 sm:px-12 md:px-24 overflow-hidden pt-6 pb-16 sm:py-20" aria-labelledby="hero-title">
         {/* Optimized Non-blocking Hero Background */}
         <HeroBackground />
 
-        <div className="max-w-5xl z-10 px-4 py-20">
+        <div className="max-w-5xl z-10 px-4 py-8 sm:py-12">
           <div>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-600/20 border border-violet-500/30 text-violet-primary text-xs font-bold uppercase tracking-[0.3em] mb-6 font-display">
               <Sparkles size={14} aria-hidden="true" />
